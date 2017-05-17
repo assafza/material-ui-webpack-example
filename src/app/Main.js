@@ -1,80 +1,121 @@
-/**
- * In this file, we create a React component
- * which incorporates components provided by Material-UI.
- */
-import React, {Component} from 'react';
+import UserLocationForm from './UserLocationForm';
+import ResultBranches from './ResultBranches';
+import React from 'react';
+import {
+  Step,
+  Stepper,
+  StepLabel,
+} from 'material-ui/Stepper';
 import RaisedButton from 'material-ui/RaisedButton';
-import Dialog from 'material-ui/Dialog';
-import {deepOrange500} from 'material-ui/styles/colors';
 import FlatButton from 'material-ui/FlatButton';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import locationsArray from './data.json';
 
-const styles = {
-  container: {
-    textAlign: 'center',
-    paddingTop: 200,
-  },
-};
 
-const muiTheme = getMuiTheme({
-  palette: {
-    accent1Color: deepOrange500,
-  },
-});
+/**
+ * Horizontal steppers are ideal when the contents of one step depend on an earlier step.
+ * Avoid using long step names in horizontal steppers.
+ *
+ * Linear steppers require users to complete one step in order to move on to the next.
+ */
+class HorizontalLinearStepper extends React.Component {
 
-class Main extends Component {
-  constructor(props, context) {
-    super(props, context);
+  state = {
+    finished: false,
+    stepIndex: 0,
+    userLocation:'',
+    locations:[]
+  };
 
-    this.state = {
-      open: false,
-    };
+  handleNext = () => {
+    const {stepIndex} = this.state;
+    this.setState({
+      stepIndex: stepIndex + 1,
+      finished: stepIndex >= 2,
+    });
+  };
+
+  handlePrev = () => {
+    const {stepIndex} = this.state;
+    if (stepIndex > 0) {
+      this.setState({stepIndex: stepIndex - 1});
+    }
+  };
+
+  componentDidMount = () =>{
+    this.setState({locations : locationsArray })
   }
 
-  handleRequestClose = () => {
-    this.setState({
-      open: false,
-    });
+  handleLocationForm = (place) => {
+    console.log(place)
+    this.setState({userLocation:place})
   }
 
-  handleTouchTap = () => {
-    this.setState({
-      open: true,
-    });
+  getStepContent(stepIndex) {
+    switch (stepIndex) {
+      case 0:
+        return 'Hello - Click NEXT to search for the closest grocery stroe';
+      case 1:
+        return <UserLocationForm handleLocationForm={this.handleLocationForm}/>;
+      case 2:
+        return <ResultBranches locations={this.state.locations} userLocation={this.state.userLocation}/>;
+      default:
+        return 'Have a great day!';
+    }
   }
 
   render() {
-    const standardActions = (
-      <FlatButton
-        label="Ok"
-        primary={true}
-        onTouchTap={this.handleRequestClose}
-      />
-    );
+    console.log(this.state)
+    const {finished, stepIndex} = this.state;
+    const contentStyle = {margin: '0 16px'};
 
     return (
-      <MuiThemeProvider muiTheme={muiTheme}>
-        <div style={styles.container}>
-          <Dialog
-            open={this.state.open}
-            title="Super Secret Password"
-            actions={standardActions}
-            onRequestClose={this.handleRequestClose}
-          >
-            1-2-3-4-5
-          </Dialog>
-          <h1>Material-UI</h1>
-          <h2>example project</h2>
-          <RaisedButton
-            label="Super Secret Password"
-            secondary={true}
-            onTouchTap={this.handleTouchTap}
-          />
+      <div style={{width: '100%', maxWidth: 700, margin: 'auto'}}>
+        <Stepper activeStep={stepIndex}>
+          <Step>
+            <StepLabel>Lets start</StepLabel>
+          </Step>
+          <Step>
+            <StepLabel>Enter your location</StepLabel>
+          </Step>
+          <Step>
+            <StepLabel>Close by grocery stores</StepLabel>
+          </Step>
+        </Stepper>
+        <div style={contentStyle}>
+          {finished ? (
+            <p>
+              <a
+                href="#"
+                onClick={(event) => {
+                  event.preventDefault();
+                  this.setState({stepIndex: 0, finished: false});
+                }}
+              >
+                Click here
+              </a> to reset the example.
+            </p>
+          ) : (
+            <div>
+              <p>{this.getStepContent(stepIndex)}</p>
+              <div style={{marginTop: 12}}>
+                <FlatButton
+                  label="Back"
+                  disabled={stepIndex === 0}
+                  onTouchTap={this.handlePrev}
+                  style={{marginRight: 12}}
+                />
+                <RaisedButton
+                  label={stepIndex === 2 ? 'Finish' : 'Next'}
+                  primary={true}
+                  onTouchTap={this.handleNext}
+                />
+              </div>
+            </div>
+          )}
         </div>
-      </MuiThemeProvider>
+      </div>
     );
   }
 }
 
-export default Main;
+export default HorizontalLinearStepper;

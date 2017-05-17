@@ -26,6 +26,7 @@
     "material-ui": "^0.17.4",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "react-google-autocomplete": "^1.0.13",
     "react-tap-event-plugin": "^2.0.1"
   }
 }

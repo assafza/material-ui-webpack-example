@@ -1,0 +1,79 @@
+
+
+ {
+   "branches" :[
+     {
+       "brand":"Rami Levi",
+       "name" :"Beer Sheva",
+       "lat" :"31.252973",
+       "lng" :"34.791462"
+     },
+     {
+       "brand":"Mega",
+       "name" :"Naharia",
+       "lat" :"33.008536",
+       "lng" :"35.098051"
+     },
+     {
+       "brand":"Mega",
+       "name" :"Raanana",
+       "lat" :"32.184781",
+       "lng" :"34.871326"
+     },
+     {
+       "brand":"Mega",
+       "name" :"Hadera",
+         "lat" :"32.434046",
+         "lng" :"34.919652"
+     },
+     {
+       "brand":"Mega",
+       "name" :"Rishon Lezion",
+       "lat" :"31.973001",
+       "lng" :"34.792501"
+     },
+     {
+       "brand":"Rami Levi",
+       "name" :"Givatayim",
+       "lat" :"32.072176",
+       "lng" :"34.808871"
+     },
+     {
+       "brand":"Rami Levi",
+       "name" :"Florentine",
+         "lat" :"32.056036",
+         "lng" :"34.772605"
+     },
+     {
+       "brand":"Rami Levi",
+       "name" :"Ramat Gan",
+       "lat" :"32.068424",
+       "lng" :"34.824785"
+     },
+     {
+       "brand":"Shufersal",
+       "name" :"Dizingof",
+       "lat" :"32.085814",
+       "lng" :"34.774667"
+     },
+     {
+       "brand":"Shufersal",
+       "name" :"Kfar saba",
+       "lat" :"32.178195",
+       "lng" :"34.907610"
+     },
+     {
+       "brand":"Shufersal",
+       "name" :"Holon",
+       "lat" :"32.015833",
+       "lng" :"34.787384"
+     },
+     {
+       "brand":"Shufersal",
+       "name" :"Azor",
+       "lat" :"32.029558",
+       "lng" :"34.799648"
+     }
+
+   ]
+ }
